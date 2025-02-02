@@ -12,6 +12,6 @@
 ## Comandos:
 - Para ver los comandos de uso y su funcionamiento basta con utilizar
     **TaskTrackerCli --help**
-- Si quieres ver la forma de uso de un comando en específico usa **-h** luego del comando que quieres usar, por ejemplo **TaskTrackerCli list -h**
+- Si quieres ver la forma de uso de un comando en específico usa **-h** luego del comando que quieres usar, por ejemplo: **TaskTrackerCli list -h**
 
 **Proyecto obtenido de: [roadmap](https://roadmap.sh/projects/task-tracker)**

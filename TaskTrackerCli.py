@@ -76,8 +76,8 @@ def ObtenerConsultas():
             "args": [
                 {
                     "name_or_flags": ["--estatus", "-e"],
-                    "help": "Filtrar tareas por estado (todas, terminada, por hacer, en progreso)",
-                    "choices": ["todas", "terminada", "por hacer", "en progreso"],
+                    "help": "Filtrar tareas por estado (todas, terminadsa, por hacer, en progreso)",
+                    "choices": ["todas", "terminadas", "por hacer", "en progreso"],
                     "type": str.lower,
                     "default": "todas",
                 }
@@ -122,11 +122,12 @@ def AgregarTarea(base, descripcion):
         "creada": today,
         "actualizada": today,
     }
+    print("Tarea agregada:\n")
     ListarTareas({id: base[id]})
 
 
 def EliminarTarea(base, id):
-    print("Tarea eliminada:")
+    print("Tarea eliminada:\n")
     ListarTareas({id: base[id]})
     del base[id]
 
@@ -134,12 +135,14 @@ def EliminarTarea(base, id):
 def ActualizarTarea(base, id, descripcion):
     base[id]["descripcion"] = descripcion
     base[id]["actualizada"] = datetime.today().isoformat()
+    print("Tarea actualizada:\n")
     ListarTareas({id: base[id]})
 
 
 def ListarTareas(base, estatus = 'todas'):
     DATETIME_FORMAT = "%d/%m/%Y %H:%M:%S"
-
+    if (estatus == "terminadas"):
+        estatus = "terminada"
     table = (
         {
             "Id": id,
@@ -155,21 +158,24 @@ def ListarTareas(base, estatus = 'todas'):
         for id, properties in sorted(base.items(), key=lambda t: t[0])
         if estatus == "todas" or estatus == properties["estatus"]
     )
-
-    print(
-        tabulate(table, tablefmt="mixed_grid", headers="keys") or "No hay tareas aún."
-    )
+    table = tabulate(table, tablefmt="mixed_grid", headers="keys")
+    if (estatus == "todas"):
+        print(table or "No hay tareas aún.")
+    else:   
+        print(table or f"No hay tareas aún con el estatus: {estatus}.")
 
 
 def MarcarEnProgeso(base, id):
     base[id]["estatus"] = "en progreso"
     base[id]["actualizada"] = datetime.today().isoformat()
+    print("Tarea en progreso:\n")
     ListarTareas({id: base[id]})
 
 
 def MarcarTerminada(base, id):
     base[id]["estatus"] = "terminada"
     base[id]["actualizada"] = datetime.today().isoformat()
+    print("Tarea terminada:\n")
     ListarTareas({id: base[id]})
 
 

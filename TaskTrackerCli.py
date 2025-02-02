@@ -4,7 +4,10 @@ from tabulate import tabulate
 import json
 import os
 import sys
+import locale
 
+# Establecer la configuración regional a español
+locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 
 def main():
     consultas = ObtenerConsultas()
@@ -140,7 +143,7 @@ def ActualizarTarea(base, id, descripcion):
 
 
 def ListarTareas(base, estatus = 'todas'):
-    DATETIME_FORMAT = "%d/%m/%Y %H:%M:%S"
+    DATETIME_FORMAT = "%H:%M, %a, %d de %b de %Y"
     if (estatus == "terminadas"):
         estatus = "terminada"
     table = (
